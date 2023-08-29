@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <h1></h1>
+  <div id="container">
+    <h2>Add New User</h2>
+    <form id="form" method="POST">
+      <label for="name">Name:</label><input type="text" id="name" name="name">
+      <label for="email">Email:</label><input type="email" id="email" name="email">
+      <label for="password">Password:</label><input type="password" id="password" name="password">
+      <button type="submit" id="submit">Submit</button>
+    </form><br>
+    <a href="/singin" style="font-weight: bold;">SingIn</a>
+    <h3>MSG:</h3>
+    <p id="msg" style="color: red; font-weight: bold;"> </p>
+
+  </div>
+  <script>
+    const form = document.getElementById('form');
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const submit = document.getElementById('submit');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let nameValue = name.value;
+      let emailValue = email.value;
+      let passwordValue = password.value;
+      let data = { name: nameValue, email: emailValue, password: passwordValue};
+      axios.post('/singup', data)
+        .then((res) => {
+          // msg.innerText = res.data.message;
+          alert("user created !")
+          return (name.value = '', email.value = '', password.value = '')
+        }).catch((err) => { alert(err.message); });
+    });
+  </script>
+</body>
+</html>
